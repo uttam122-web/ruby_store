@@ -10,5 +10,3 @@ class Book < ApplicationRecord
     puts "📚 A new book was added: #{self.title}"
   end
 end
-
-

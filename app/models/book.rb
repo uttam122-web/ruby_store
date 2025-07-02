@@ -3,7 +3,7 @@ class Book < ApplicationRecord
   validates :author, presence: true
 
   after_create :log_new_book
-
+  belongs_to :author
   private
 
   def log_new_book

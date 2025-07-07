@@ -4,6 +4,7 @@ class Book < ApplicationRecord
 
   after_create :log_new_book
   belongs_to :author
+  belongs_to :supplier
   private
 
   def log_new_book

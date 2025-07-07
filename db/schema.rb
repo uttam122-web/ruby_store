@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_30_053213) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_03_092356) do
   create_table "authors", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -23,7 +23,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_30_053213) do
     t.datetime "updated_at", null: false
     t.integer "author_id"
     t.string "author"
+    t.integer "supplier_id", null: false
+    t.decimal "price"
     t.index ["author_id"], name: "index_books_on_author_id"
+    t.index ["supplier_id"], name: "index_books_on_supplier_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -31,6 +34,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_30_053213) do
     t.string "contact_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -70,11 +74,31 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_30_053213) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "book_id", null: false
+    t.text "content"
+    t.integer "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_reviews_on_book_id"
+    t.index ["customer_id"], name: "index_reviews_on_customer_id"
+  end
+
+  create_table "suppliers", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "books", "authors"
+  add_foreign_key "books", "suppliers"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "customers"
   add_foreign_key "orders", "customers"
+  add_foreign_key "reviews", "books"
+  add_foreign_key "reviews", "customers"
 end

@@ -1,0 +1,7 @@
+<h1>Books#index</h1>
+<p>Find me in app/views/books/index.html.erb</p>
+
+<h1>All Books</h1>
+<%= link_to "New Book", new_book_path %>
+
+<%= render @books %> <!-- Automatically loops using _book.html.erb -->
